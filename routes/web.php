@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/forge', function () {
+    return "My name is An. I am learning Laravel Forge.";
+});
