@@ -14,25 +14,20 @@ class SendWelcomeEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $user;
+    protected $email;
 
-    public function __construct($user)
+    public function __construct($email)
     {
-        $this->user = $user;
+        $this->email = $email;
     }
 
     public function handle()
     {
-        if (!$this->user || !$this->user->email) {
-            \Log::error('User or user email is not valid');
-            return;
-        }
-
         try {
-            Mail::to($this->user->email)->send(new WelcomeEmail($this->user));
-            \Log::info('Welcome email sent to ' . $this->user->email);
+            Mail::to($this->email)->send(new WelcomeEmail($this->email));
+            \Log::info('Welcome email sent to ' . $this->email);
         } catch (\Exception $e) {
-            \Log::error('Failed to send welcome email to ' . $this->user->email . ': ' . $e->getMessage());
+            \Log::error('Failed to send welcome email to ' . $this->email . ': ' . $e->getMessage());
             throw $e; // Rethrow the exception to trigger retry logic
         }
     }

@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Jobs\SendWelcomeEmail;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash; // Thêm thư viện Hash
+use Illuminate\Support\Facades\Hash;
 
 class WelcomeController extends Controller
 {
@@ -26,14 +26,14 @@ class WelcomeController extends Controller
             }
 
             // Tạo user mới
-            $user = new User;
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->password = Hash::make($request->input('password')); // Mã hóa mật khẩu
-            $user->save();
+            $user = User::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')), // Mã hóa mật khẩu
+            ]);
 
             // Dispatch job SendWelcomeEmail
-            dispatch(new SendWelcomeEmail($user));
+            SendWelcomeEmail::dispatch($user->email);
 
             return response()->json(['message' => 'User created successfully!']);
         } catch (\Exception $e) {
