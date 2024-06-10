@@ -31,23 +31,23 @@ class WelcomeEmail extends Mailable
 
     /**
      * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Welcome Email',
-        );
-    }
+    //  */
+    // public function envelope(): Envelope
+    // {
+    //     return new Envelope(
+    //         subject: 'Welcome Email',
+    //     );
+    // }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
+    // /**
+    //  * Get the message content definition.
+    //  */
+    // public function content(): Content
+    // {
+    //     return new Content(
+    //         view: 'view.name',
+    //     );
+    // }
 
     /**
      * Get the attachments for the message.
