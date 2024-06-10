@@ -27,13 +27,13 @@ class WelcomeController extends Controller
 
             // Tạo user mới
             $user = User::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')), // Mã hóa mật khẩu
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password), // Mã hóa mật khẩu
             ]);
 
             // Dispatch job SendWelcomeEmail
-            SendWelcomeEmail::dispatch($user->email);
+            SendWelcomeEmail::dispatch($request->email);
 
             return response()->json(['message' => 'User created successfully!']);
         } catch (\Exception $e) {
