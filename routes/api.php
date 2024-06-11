@@ -23,3 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/welcome', [WelcomeController::class, 'store']);
 
 Route::get('/test-queue', [TestQueueController::class, 'testQueue']);
+
+Route::get('/test-domain', function () {
+    return "The domain is working properly.";
+});
